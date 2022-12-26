@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table, tr, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      version="1.1"
+      id="filters"
+      xmlns="https://www.w3.org/2000/svg"
+      xmlns:xlink="https://www.w3.org/1999/xlink"
+      height="0"
+      width="0"
+      viewbox="0 0 0 0"
+    >
+      <defs>
+        <style type="text/css">
+          <![CDATA[
+            .thicken { filter: url(#thicken); font-size: 40px; }
+            .erode { filter: url(#erode); font-size: 40px; }
+            .extrude { filter: url(#extrude); font-size: 40px; }
+            .extrudeBottomRight { filter: url(#extrudeBottomRight); font-size: 40px; }
+          ]]>
+        </style>
+
+        <filter id="thicken">
+          <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="myresult" />
+        </filter>
+
+        <filter id="erode">
+          <feMorphology operator="erode" radius="1" in="SourceAlpha" result="myresult" />
+        </filter>
+
+        <filter id="extrude">
+          <feConvolveMatrix order="3,3" kernelMatrix=
+             "1 0 0 
+             0 1 0
+             0 0 1" in="SourceAlpha" result="myresult" />
+        </filter>
+
+        <filter id="extrudeBottomRight">
+          <feConvolveMatrix order="3,3" kernelMatrix=
+             "1 0 0 
+             0 1 0
+             0 0 1" in="SourceAlpha" result="myresult" />
+          <feOffset dx="4" dy="4" in="myresult" result="myresult2"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <p>Examples of SVG text filters. Learn more at <a href="https://www.smashingmagazine.com/2015/05/why-the-svg-filter-is-awesome/">Smashing Magazine</a>.</p>
+    <table>
+      <tr><td>thicken</td><td><span class="thicken">Oh my goodness!</span></td></tr>
+      <tr><td>erode</td><td><span class="erode">Oh my goodness!</span></td></tr>
+      <tr><td>extrude</td><td><span class="extrude">Oh my goodness!</span></td></tr>
+      <tr><td>extrude towards bottom right</td><td><span class="extrudeBottomRight">Oh my goodness!</span></td></tr>
+    </table>
+  </body>
+</html>

@@ -25,6 +25,8 @@
             .erode { filter: url(#erode); font-size: 40px; }
             .extrude { filter: url(#extrude); font-size: 40px; }
             .extrudeBottomRight { filter: url(#extrudeBottomRight); font-size: 40px; }
+            .extrusion { filter: url(#extrusion); font-size: 40px; }
+            .red { filter: url(#red); font-size: 40px; }
           ]]>
         </style>
 
@@ -38,17 +40,31 @@
 
         <filter id="extrude">
           <feConvolveMatrix order="3,3" kernelMatrix=
-             "1 0 0 
+             "1 0 0
              0 1 0
              0 0 1" in="SourceAlpha" result="myresult" />
         </filter>
 
         <filter id="extrudeBottomRight">
           <feConvolveMatrix order="3,3" kernelMatrix=
-             "1 0 0 
+             "1 0 0
              0 1 0
              0 0 1" in="SourceAlpha" result="myresult" />
           <feOffset dx="4" dy="4" in="myresult" result="myresult2"/>
+        </filter>
+
+        <filter id="extrusion">
+          <feConvolveMatrix order="3,3" kernelMatrix=
+             "1 0 0
+             0 1 0
+             0 0 1" in="SourceAlpha" result="myresult" />
+          <feOffset dx="4" dy="4" in="myresult" result="myresult2"/>
+          <feComposite operator="out" in="myresult2" in2="myresult" result="myresult3"/>
+        </filter>
+
+        <filter id="red">
+          <feFlood flood-color="#fe3333" result="COLOR-red" />
+          <feComposite in="COLOR-red" in2="SourceAlpha" operator="in" result="myresult" />
         </filter>
       </defs>
     </svg>
@@ -59,6 +75,8 @@
       <tr><td>erode</td><td><span class="erode">Oh my goodness!</span></td></tr>
       <tr><td>extrude</td><td><span class="extrude">Oh my goodness!</span></td></tr>
       <tr><td>extrude towards bottom right</td><td><span class="extrudeBottomRight">Oh my goodness!</span></td></tr>
+      <tr><td>extrusion only</td><td><span class="extrusion">Oh my goodness!</span></td></tr>
+      <tr><td>red</td><td><span class="red">Oh my goodness!</span></td></tr>
     </table>
   </body>
 </html>
